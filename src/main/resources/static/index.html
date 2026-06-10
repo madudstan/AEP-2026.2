@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RotaLivre</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" aria-label="Navegação principal">
+            <div class="brand-block">
+                <img class="brand-logo" src="/assets/rotalivre-logo.png" alt="RotaLivre">
+                <span class="subtitle">Cidade acessível, cidade para todos.</span>
+            </div>
+
+            <nav class="side-nav">
+                <button class="nav-item active" data-screen="inicio">
+                    <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5 10.5V20h5v-5h4v5h5v-9.5"></path></svg></span>
+                    Início
+                </button>
+                <button class="nav-item" data-screen="nova-solicitacao">
+                    <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg></span>
+                    Nova solicitação
+                </button>
+                <button class="nav-item" data-screen="minhas-solicitacoes">
+                    <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8l1 2h3v18H4V6h3l1-2Z"></path><path d="M8 10h8"></path><path d="M8 14h8"></path><path d="M8 18h5"></path></svg></span>
+                    Minhas solicitações
+                </button>
+                <button class="nav-item" data-screen="mapa-problemas">
+                    <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg></span>
+                    Mapa de problemas
+                </button>
+                <button class="nav-item" data-screen="acessibilidade">
+                    <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"></circle><path d="M12 7v7"></path><path d="M8 9h8"></path><path d="M10 14a5 5 0 1 0 5 5"></path><path d="M14 14l2 5h3"></path></svg></span>
+                    Acessibilidade
+                </button>
+                <button class="nav-item" data-screen="notificacoes">
+                    <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg></span>
+                    Notificações
+                </button>
+                <button class="nav-item" data-screen="noticias">
+                    <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11v4h4l10 5V6L7 11H3Z"></path><path d="M21 9v8"></path></svg></span>
+                    Notícias e avisos
+                </button>
+                <button class="nav-item" data-screen="relatorios">
+                    <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h18"></path><path d="M7 20V10"></path><path d="M12 20V4"></path><path d="M17 20v-7"></path></svg></span>
+                    Relatórios públicos
+                </button>
+                <button class="nav-item" data-screen="ajuda">
+                    <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M9.8 9a2.5 2.5 0 0 1 4.7 1.2c0 2-2.5 2.2-2.5 4"></path><path d="M12 18h.01"></path></svg></span>
+                    Ajuda
+                </button>
+                <button class="nav-item" data-screen="sobre">
+                    <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><path d="M12 7h.01"></path></svg></span>
+                    Sobre o RotaLivre
+                </button>
+                <button class="nav-item" data-screen="prefeitura">Prefeitura</button>
+            </nav>
+        </aside>
+
+        <div class="content-shell">
+            <header class="topbar">
+                <label class="search-box">
+                    <input id="busca-global" placeholder="Buscar solicitações, locais, categorias...">
+                </label>
+                <div class="top-actions" aria-label="Acessibilidade e conta">
+                    <button type="button" class="icon-button secondary" id="fonte-menor">A-</button>
+                    <button type="button" class="icon-button secondary" id="contraste">Contraste</button>
+                    <button type="button" class="icon-button secondary" id="fonte-maior">A+</button>
+                    <span id="usuario-logado" class="session-label">Visitante</span>
+                    <button type="button" class="secondary" id="botao-entrar" data-screen-link="login-cidadao">Entrar</button>
+                    <button type="button" class="secondary hidden" id="botao-sair">Sair</button>
+                </div>
+            </header>
+            <div id="resultados-busca-global" class="global-search-results hidden"></div>
+
+            <main>
+                <section id="inicio" class="screen active" aria-labelledby="titulo-inicio">
+                    <div class="hero-panel">
+                        <div class="hero-copy">
+                            <p class="breadcrumb">Início</p>
+                            <h1 id="titulo-inicio">Bem-vindo(a) ao RotaLivre!</h1>
+                            <p>Registre problemas de acessibilidade urbana e acompanhe o andamento das suas solicitações de forma simples e rápida.</p>
+                            <div class="hero-actions">
+                                <button type="button" data-screen-link="nova-solicitacao">Nova solicitação</button>
+                                <button type="button" class="secondary" data-screen-link="minhas-solicitacoes">Ver minhas solicitações</button>
+                            </div>
+                        </div>
+                        <figure class="hero-visual">
+                            <img src="/assets/home-accessibility.png" alt="Ilustração de uma cidade acessível com rampa, piso tátil, faixa de pedestres e sinalização." width="360" height="203">
+                        </figure>
+                    </div>
+
+                    <div class="steps-grid" aria-label="Como funciona">
+                        <article class="step-card">
+                            <span>1</span>
+                            <h2>Você registra</h2>
+                            <p>Informe o problema de acessibilidade com fotos e localização.</p>
+                        </article>
+                        <article class="step-card">
+                            <span>2</span>
+                            <h2>Analisamos</h2>
+                            <p>Nossa equipe analisa e prioriza sua solicitação.</p>
+                        </article>
+                        <article class="step-card">
+                            <span>3</span>
+                            <h2>Providenciamos</h2>
+                            <p>A ação é encaminhada para o setor responsável.</p>
+                        </article>
+                        <article class="step-card">
+                            <span>4</span>
+                            <h2>Você acompanha</h2>
+                            <p>Acompanhe o status até a solução do problema.</p>
+                        </article>
+                    </div>
+                </section>
+
+                <section id="nova-solicitacao" class="screen" aria-labelledby="titulo-nova">
+                    <div class="page-title">
+                        <div>
+                            <p class="breadcrumb">Início &gt; Nova solicitação</p>
+                            <h1 id="titulo-nova">Nova solicitação</h1>
+                            <p>Preencha os campos abaixo para registrar um problema de acessibilidade urbana.</p>
+                        </div>
+                    </div>
+
+                    <form id="form-solicitacao" class="panel request-form">
+                        <fieldset>
+                            <legend>Identificação</legend>
+                            <label class="switch">
+                                <input type="checkbox" id="anonimo">
+                                <span>Enviar como anônimo</span>
+                            </label>
+                            <div class="two-columns" id="dados-pessoais">
+                                <label>Nome
+                                    <input name="nome" autocomplete="name" placeholder="Ex.: Maria Silva">
+                                </label>
+                                <label>E-mail
+                                    <input name="email" type="email" autocomplete="email" placeholder="maria@email.com">
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <label>1. Qual é o problema?
+                            <select name="categoria" required>
+                                <option value="">Selecione uma categoria</option>
+                                <option>Calçada irregular</option>
+                                <option>Falta de rampa</option>
+                                <option>Semáforo sem sinal sonoro</option>
+                                <option>Ônibus sem elevador</option>
+                                <option>Prédio público inacessível</option>
+                                <option>Outro problema urbano</option>
+                            </select>
+                        </label>
+
+                        <label>2. Onde está acontecendo?
+                            <input name="localizacao" required placeholder="Digite o endereço ou ponto de referência">
+                        </label>
+
+                        <label>3. Descreva o problema
+                            <textarea name="descricao" minlength="10" required placeholder="Se possível, dê mais detalhes sobre o que está acontecendo. Ex.: calçada quebrada impossibilita a passagem de cadeirantes."></textarea>
+                        </label>
+
+                        <label class="upload-box">4. Adicione fotos (opcional)
+                            <input id="fotos-ocorrencia" name="fotos" type="file" accept="image/png,image/jpeg" multiple>
+                            <span>Clique para enviar ou arraste as imagens para cá.</span>
+                            <small>PNG, JPG ou JPEG. Max. 5MB cada.</small>
+                        </label>
+                        <div id="preview-fotos" class="photo-preview" aria-live="polite"></div>
+
+                        <fieldset>
+                            <legend>5. Esse problema afeta alguém com deficiência?</legend>
+                            <div class="radio-row">
+                                <label><input type="radio" name="afetaDeficiencia" value="Sim"> Sim</label>
+                                <label><input type="radio" name="afetaDeficiencia" value="Nao"> Não</label>
+                                <label><input type="radio" name="afetaDeficiencia" value="Nao sei informar"> Não sei informar</label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>6. Qual nível de impacto?</legend>
+                            <div class="radio-row">
+                                <label><input type="radio" name="prioridade" value="BAIXO" checked> Baixo</label>
+                                <label><input type="radio" name="prioridade" value="MEDIO"> Médio</label>
+                                <label><input type="radio" name="prioridade" value="ALTO"> Alto</label>
+                            </div>
+                        </fieldset>
+
+                        <div class="actions">
+                            <button type="reset" class="secondary">Limpar</button>
+                            <button type="submit">Enviar</button>
+                        </div>
+                    </form>
+
+                    <article id="protocolo-criado" class="result hidden" aria-live="polite"></article>
+                </section>
+
+                <section id="minhas-solicitacoes" class="screen" aria-labelledby="titulo-minhas">
+                    <div class="page-title">
+                        <div>
+                            <p class="breadcrumb">Início &gt; Minhas solicitações</p>
+                            <h1 id="titulo-minhas">Acompanhar solicitações</h1>
+                            <p>Veja o status e o andamento de todas as suas solicitações.</p>
+                        </div>
+                    </div>
+
+                    <form id="form-consulta" class="panel search-row">
+                        <label>Consultar por protocolo
+                            <input name="protocolo" required placeholder="Ex.: A1B2C3D4">
+                        </label>
+                        <button type="submit">Buscar</button>
+                    </form>
+
+                    <div class="panel status-summary">
+                        <strong>Resumo</strong>
+                        <span id="total-aberto">0 aberto(s)</span>
+                        <span id="total-triagem">0 em triagem</span>
+                        <span id="total-execucao">0 em execução</span>
+                        <span id="total-resolvido">0 resolvido(s)</span>
+                    </div>
+
+                    <div id="lista-demandas" class="request-list"></div>
+                    <div id="detalhe-solicitacao"></div>
+                </section>
+
+                <section id="mapa-problemas" class="screen" aria-labelledby="titulo-mapa">
+                    <div class="page-title">
+                        <div>
+                            <p class="breadcrumb">Início &gt; Mapa de Problemas</p>
+                            <h1 id="titulo-mapa">Mapa de Problemas</h1>
+                            <p>Veja no mapa onde estão os problemas de acessibilidade na sua cidade.</p>
+                        </div>
+                    </div>
+
+                    <div class="panel filters map-filters">
+                        <label>Filtrar por categoria
+                            <select id="filtro-categoria">
+                                <option value="">Todas</option>
+                                <option>Calçada irregular</option>
+                                <option>Falta de rampa</option>
+                                <option>Semáforo sem sinal sonoro</option>
+                                <option>Ônibus sem elevador</option>
+                                <option>Prédio público inacessível</option>
+                                <option>Outro problema urbano</option>
+                            </select>
+                        </label>
+                        <label>Status
+                            <select id="filtro-status-visual">
+                                <option value="">Todos</option>
+                                <option value="ABERTO">Aberto</option>
+                                <option value="TRIAGEM">Triagem</option>
+                                <option value="EM_EXECUCAO">Em execução</option>
+                                <option value="RESOLVIDO">Resolvido</option>
+                            </select>
+                        </label>
+                        <label>Período
+                            <select id="filtro-periodo">
+                                <option value="30">Últimos 30 dias</option>
+                                <option value="90">Últimos 90 dias</option>
+                                <option value="ano">Este ano</option>
+                            </select>
+                        </label>
+                        <button id="aplicar-filtros" type="button">Filtrar</button>
+                    </div>
+
+                    <div class="map-panel" id="mapa-dinamico" aria-label="Mapa ilustrativo dos problemas urbanos">
+                        <div class="map-illustration" aria-hidden="true">
+                            <div class="map-district district-one"></div>
+                            <div class="map-district district-two"></div>
+                            <div class="map-district district-three"></div>
+                            <div class="map-district district-four"></div>
+                            <div class="map-road road-main"></div>
+                            <div class="map-road road-cross"></div>
+                            <div class="map-road road-diagonal"></div>
+                            <div class="map-park"></div>
+                            <div class="map-label">Centro</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="prefeitura" class="screen" aria-labelledby="titulo-prefeitura">
+                    <div class="page-title">
+                        <div>
+                            <p class="breadcrumb">Início &gt; Prefeitura</p>
+                            <h1 id="titulo-prefeitura">Fila de atendimento</h1>
+                        </div>
+                        <button id="recarregar" class="secondary" type="button">Atualizar lista</button>
+                    </div>
+
+                    <div class="panel filters">
+                        <label>Bairro
+                            <input id="filtro-bairro" placeholder="Filtrar por bairro">
+                        </label>
+                        <label>Prioridade
+                            <select id="filtro-prioridade">
+                                <option value="">Todas</option>
+                                <option value="ALTO">Alto impacto</option>
+                                <option value="MEDIO">Médio impacto</option>
+                                <option value="BAIXO">Baixo impacto</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div id="lista-prefeitura" class="request-list"></div>
+
+                    <form id="form-status" class="panel auth-form">
+                        <h2>Atualizar status</h2>
+                        <label>Protocolo
+                            <input name="protocolo" required placeholder="Selecione ou digite">
+                        </label>
+                        <label>Novo status
+                            <select name="status" required>
+                                <option value="TRIAGEM">Triagem</option>
+                                <option value="EM_EXECUCAO">Em execução</option>
+                                <option value="RESOLVIDO">Resolvido</option>
+                                <option value="ENCERRADO">Encerrado</option>
+                            </select>
+                        </label>
+                        <label>Responsável
+                            <input name="responsavel" required placeholder="Nome do atendente">
+                        </label>
+                        <label>Comentário
+                            <textarea name="comentario" required placeholder="Informe a ação tomada ou justificativa."></textarea>
+                        </label>
+                        <button type="submit">Salvar atualização</button>
+                    </form>
+                </section>
+
+                <section id="acessibilidade" class="screen simple-screen">
+                    <h1>Acessibilidade</h1>
+                    <p>O RotaLivre foi desenvolvido para garantir que todos os cidadãos possam utilizar a plataforma de forma simples, segura e inclusiva. Para isso, o sistema disponibiliza recursos de acessibilidade que facilitam a navegação e a visualização das informações.</p>
+                    <p>Entre os recursos disponíveis estão o ajuste do tamanho da fonte, o modo de alto contraste e a navegação adaptada para diferentes necessidades dos usuários.</p>
+                    <p>Nosso objetivo é promover o acesso igualitário aos serviços públicos digitais, permitindo que qualquer pessoa possa registrar, acompanhar e consultar solicitações relacionadas à acessibilidade urbana.</p>
+                    <p>Caso encontre dificuldades durante a utilização da plataforma, entre em contato com a equipe responsável para que possamos continuar aprimorando a experiência de todos os usuários.</p>
+                </section>
+
+                <section id="notificacoes" class="screen simple-screen">
+                    <h1>Notificações</h1>
+                    <div id="lista-notificacoes" class="notification-list"></div>
+                </section>
+
+                <section id="noticias" class="screen simple-screen">
+                    <h1>Notícias e avisos</h1>
+                    <p>Nenhum aviso disponível no momento.</p>
+                    <p>Esta área será utilizada para divulgar comunicados, atualizações e informações relacionadas à acessibilidade urbana.</p>
+                    <p>Novos avisos serão exibidos aqui quando estiverem disponíveis.</p>
+                </section>
+
+                <section id="relatorios" class="screen simple-screen">
+                    <h1>Relatórios públicos</h1>
+                    <p>Dados públicos das solicitações registradas pela plataforma.</p>
+                    <div id="relatorio-publico" class="report-grid"></div>
+                </section>
+
+                <section id="ajuda" class="screen simple-screen">
+                    <h1>Precisa de ajuda?</h1>
+                    <p>Utilize o menu lateral para acessar as funcionalidades da plataforma.</p>
+                    <p>Caso encontre dificuldades durante a navegação, entre em contato com a equipe responsável pelo sistema.</p>
+                </section>
+
+                <section id="sobre" class="screen simple-screen">
+                    <h1>Sobre o RotaLivre</h1>
+                    <p>O RotaLivre é um software voltado ao registro e acompanhamento de solicitações relacionadas à acessibilidade urbana.</p>
+                    <p>Seu objetivo é facilitar a comunicação entre cidadãos e órgãos responsáveis, contribuindo para uma cidade mais inclusiva, segura e acessível para todos.</p>
+                    <p>Este sistema foi desenvolvido para o projeto AEP pelos acadêmicos do 5º semestre de Engenharia de Software:</p>
+                    <ul class="about-list">
+                        <li>Heloísa Sayuri Silva Saito</li>
+                        <li>Maria Eduarda de Castro Lachimia</li>
+                        <li>Matheus Costa E. Silva</li>
+                    </ul>
+                    <p>RotaLivre - Cidade acessível, cidade para todos.</p>
+                </section>
+
+                <section id="login-cidadao" class="screen auth-screen" aria-labelledby="titulo-login-cidadao">
+                    <div class="page-title">
+                        <div>
+                            <p class="breadcrumb">Início &gt; Entrar</p>
+                            <h1 id="titulo-login-cidadao">Login do cidadão</h1>
+                        </div>
+                    </div>
+                    <form class="panel auth-form" data-auth-form data-auth-mode="login" data-auth-type="cidadao">
+                        <label>E-mail
+                            <input name="email" type="email" autocomplete="email" required placeholder="cidadao@email.com">
+                        </label>
+                        <label>Senha
+                            <input name="senha" type="password" autocomplete="current-password" required placeholder="Digite sua senha">
+                        </label>
+                        <div class="actions">
+                            <button type="button" class="secondary" data-screen-link="cadastro-cidadao">Criar cadastro</button>
+                            <button type="submit">Entrar</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section id="cadastro-cidadao" class="screen auth-screen" aria-labelledby="titulo-cadastro-cidadao">
+                    <div class="page-title">
+                        <div>
+                            <p class="breadcrumb">Início &gt; Cadastro</p>
+                            <h1 id="titulo-cadastro-cidadao">Cadastro do cidadão</h1>
+                        </div>
+                    </div>
+                    <form class="panel auth-form" data-auth-form data-auth-mode="cadastro" data-auth-type="cidadao">
+                        <div class="two-columns">
+                            <label>Nome completo
+                                <input name="nome" autocomplete="name" required placeholder="Ex.: Maria Silva">
+                            </label>
+                            <label>CPF
+                                <input name="cpf" inputmode="numeric" required placeholder="000.000.000-00">
+                            </label>
+                        </div>
+                        <label>E-mail
+                            <input name="email" type="email" autocomplete="email" required placeholder="maria@email.com">
+                        </label>
+                        <div class="two-columns">
+                            <label>Senha
+                                <input name="senha" type="password" autocomplete="new-password" required placeholder="Crie uma senha">
+                            </label>
+                            <label>Confirmar senha
+                                <input name="confirmarSenha" type="password" autocomplete="new-password" required placeholder="Repita a senha">
+                            </label>
+                        </div>
+                        <div class="actions">
+                            <button type="button" class="secondary" data-screen-link="login-cidadao">Já tenho conta</button>
+                            <button type="submit">Cadastrar</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section id="login-servidor" class="screen auth-screen" aria-labelledby="titulo-login-servidor">
+                    <div class="page-title">
+                        <div>
+                            <p class="breadcrumb">Início &gt; Prefeitura</p>
+                            <h1 id="titulo-login-servidor">Login do servidor</h1>
+                        </div>
+                    </div>
+                    <form class="panel auth-form" data-auth-form data-auth-mode="login" data-auth-type="servidor">
+                        <label>E-mail institucional
+                            <input name="email" type="email" autocomplete="email" required placeholder="servidor@prefeitura.gov.br">
+                        </label>
+                        <label>Senha
+                            <input name="senha" type="password" autocomplete="current-password" required placeholder="Digite sua senha">
+                        </label>
+                        <div class="actions">
+                            <button type="button" class="secondary" data-screen-link="cadastro-servidor">Solicitar cadastro</button>
+                            <button type="submit">Entrar</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section id="cadastro-servidor" class="screen auth-screen" aria-labelledby="titulo-cadastro-servidor">
+                    <div class="page-title">
+                        <div>
+                            <p class="breadcrumb">Início &gt; Cadastro servidor</p>
+                            <h1 id="titulo-cadastro-servidor">Cadastro do servidor</h1>
+                        </div>
+                    </div>
+                    <form class="panel auth-form" data-auth-form data-auth-mode="cadastro" data-auth-type="servidor">
+                        <div class="two-columns">
+                            <label>Nome completo
+                                <input name="nome" autocomplete="name" required placeholder="Nome do servidor">
+                            </label>
+                            <label>Matrícula
+                                <input name="matricula" required placeholder="Ex.: PM-1024">
+                            </label>
+                        </div>
+                        <label>E-mail institucional
+                            <input name="email" type="email" autocomplete="email" required placeholder="servidor@prefeitura.gov.br">
+                        </label>
+                        <div class="two-columns">
+                            <label>Secretaria
+                                <input name="secretaria" required placeholder="Ex.: Obras e Mobilidade">
+                            </label>
+                            <label>Cargo
+                                <input name="cargo" required placeholder="Ex.: Analista de atendimento">
+                            </label>
+                        </div>
+                        <div class="two-columns">
+                            <label>Senha
+                                <input name="senha" type="password" autocomplete="new-password" required placeholder="Crie uma senha">
+                            </label>
+                            <label>Confirmar senha
+                                <input name="confirmarSenha" type="password" autocomplete="new-password" required placeholder="Repita a senha">
+                            </label>
+                        </div>
+                        <div class="actions">
+                            <button type="button" class="secondary" data-screen-link="login-servidor">Já tenho acesso</button>
+                            <button type="submit">Cadastrar servidor</button>
+                        </div>
+                    </form>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <div id="modal-detalhes" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-detalhes">
+        <div class="modal-card">
+            <div class="card-top">
+                <h2 id="titulo-modal-detalhes">Detalhes da solicitação</h2>
+                <button type="button" class="secondary" id="fechar-modal">Fechar</button>
+            </div>
+            <div id="conteudo-modal-detalhes"></div>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
