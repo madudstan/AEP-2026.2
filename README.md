@@ -1,4 +1,4 @@
-# RotaLivre - Plataforma de Acessibilidade Urbana
+# RotaLivre - Cidade Acessível, cidade para todos.
 
 O RotaLivre e um sistema para registro e acompanhamento de solicitacoes relacionadas a acessibilidade urbana. A proposta atende ao desafio da AEP 2026.1: aproximar cidadaos e prefeitura, aumentar transparencia e organizar a fila de atendimento de problemas urbanos.
 
